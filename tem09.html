@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Detection</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #b0c8bd, #b5aa98); /* example blue gradient */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Background image applied only to the home section */
+        #home {
+            background-image: url('lungca.jpg'); /* Ensure correct path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            color: white;
+            position: relative; /* Ensures overlay and text positioning */
+        }
+        
+
+/* Overlay Effect for Text Visibility */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5); 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding-top: 20%;
+}
+
+#team table {
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#team th {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+#team td {
+    border: 1px solid #ccc;
+    padding: 12px;
+}
+
+
+#team img {
+    border-radius: 50%; /* Circular images */
+    object-fit: cover;
+    height: 100px;
+    width: 100px;
+}
+
+        
+        nav {
+    background: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: center;  /* This centers the buttons horizontally */
+    flex-wrap: wrap;          /* Optional: allows wrapping on small screens */
+}
+
+        nav button {
+            background: none;
+            color: white;
+            border: none;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        nav button:hover {
+            text-decoration: underline;
+        }
+        
+        section {
+            display: none;
+            padding: 20px;
+        }    
+        /* Button Styling */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+          
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Subtle Lift Effect */
+}
+button:active {
+    background-color: #003d80;
+    transform: translateY(1px); /* Subtle press effect */
+}
+/* ------ centring the login & signup pages ------ */
+.login-wrapper {
+    max-width: 400px;
+    width: 90%;
+    margin: 60px auto;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, rgba(88, 95, 102, 0.85), rgba(172, 179, 186, 0.85));
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    text-align: center;
+    color: white;
+}
+
+
+.signup-wrapper {                    /* (We'll use the same rule for signup later) */
+    max-width: 400px;               /* keeps the form a sensible width          */
+    width: 90%;                     /* responsive on tiny screens               */
+    margin: 60px auto;              /*   ⇢ auto left & right  ⇒  H-centre       */
+    padding: 30px 20px;
+    background: #becdda;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    text-align: center;             /* centres the heading + link text          */
+}
+#loginForm input[type="email"],
+#loginForm input[type="password"],
+#loginForm button,
+#signupForm input[type="text"],
+#signupForm input[type="email"],
+#signupForm input[type="password"],
+#signupForm button {
+    border-radius: 12px; /* Adjust radius as you like */
+    border: 1px solid #ccc; /* Optional: add a subtle border */
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#loginForm button,
+#signupForm button {
+    background-color: #007bff;
+    background-image: url('lungca.jpg');
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loginForm button:hover,
+#signupForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Animation for sections */
+.fade-slide {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Glassmorphism effect */
+.glass-box {
+    background: linear-gradient(135deg, rgba(0,123,255,0.85), rgba(0,86,179,0.85));
+    border-radius: 16px;
+    padding: 30px;
+    /* Remove backdrop-filter if you want solid gradient */
+    /* backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    max-width: 400px;
+    margin: 0 auto;
+    color: white;
+}
+
+
+/* Button glow effect */
+button:hover {
+    box-shadow: 0 0 15px #007bff, 0 0 30px #007bff33;
+    transform: translateY(-3px);
+}
+
+
+/* Graph Styling */
+#majorityGraph {
+    display: block;
+    margin: 20px auto;
+    max-width: 90%;
+}
+.images div img {
+    width: 300px; /* Adjust as needed */
+    height: 300px; /* Adjust as needed */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    transition: transform 0.3s ease;
+}
+
+.images div img:hover {
+    transform: scale(1.05); /* Optional hover effect */
+}
+
+
+.images {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+        
+        .images div {
+            text-align: center;
+        }
+        input[type="file"] {
+            padding: 10px;
+            border: 2px dashed #007bff;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="file"]:hover {
+            border-color: #0056b3;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+    </style>
+</head>
+<!-- Modal container -->
+<div id="predictionModal" style="
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.4s ease-in-out;
+">
+  <div style="
+    background: rgb(113, 125, 185);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    position: relative;
+    animation: slideUp 0.4s ease-in-out;
+  ">
+    <h2 id="modalTitle"></h2>
+    <p id="modalMessage" style="margin: 15px 0;"></p>
+    <button onclick="closeModal()" style="
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    "
+    onmouseover="this.style.background='#0056b3'"
+    onmouseout="this.style.background='#007bff'">Close</button>
+  </div>
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+
+
+
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+<body>
+
+   <nav>
+  <button onclick="showSection('login')">Login</button>
+  <button onclick="showSection('signup')">Signup</button>
+  <button onclick="tryAccessSection('home')">Home</button>
+  <button onclick="tryAccessSection('symptoms')">Symptom-Based Prediction</button>
+  <button onclick="tryAccessSection('upload')">CT Scan-Based Prediction</button>
+  <button onclick="tryAccessSection('results')">Results</button>
+  <button onclick="tryAccessSection('team')">Team</button>
+  <button onclick="tryAccessSection('models')">Models</button>
+  <button onclick="logout()">Logout</button>
+</nav>
+
+
+
+<section id="login" style="display:none; padding: 20px;"> 
+   <!--<div class="login-wrapper">-->
+<div class="glass-box fade-slide">
+  <h2>Login</h2>
+  <form id="loginForm" onsubmit="return handleLogin(event)">
+    <label>Email:</label><br>
+    <input type="email" id="loginEmail" required style="padding:8px; width: 250px;"><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="loginPassword" required style="padding:8px; width: 250px;"><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? <a href="#" onclick="showSection('signup')">Sign up here</a></p>
+
+
+  <p id="loginMessage" style="color:red;"></p>
+</section>
+<section id="signup" style="display:none; padding: 20px;">
+   <!--<div class="signup-wrapper">-->
+    <div class="glass-box fade-slide">
+  <h2>Signup</h2>
+  <form id="signupForm" onsubmit="return handleSignup(event)">
+    <label>Name:</label><br>
+    <input type="text" id="signupName" required style="padding:8px; width: 250px;"><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" id="signupEmail" required style="padding:8px; width: 250px;"><br><br>
+
+    <label>Password:</label><br>
+    <input type="password" id="signupPassword" required style="padding:8px; width: 250px;"><br><br>
+
+    <button type="submit">Signup</button>
+  </form>
+<p>Already have an account? <a href="#" onclick="showSection('login')">Login here</a></p>
+
+  <p id="signupMessage" style="color:red;"></p>
+  </div>
+  </div>
+</section>
+
+
+    <!-- Home Section -->
+    <section id="home" style="display: block;">
+        <div class="overlay"></div>
+        <div class="container">
+          <h1>Welcome to Lung Cancer Detection</h1>
+          <p>Upload a CT scan to get predictions using multiple models.</p>
+          <button onclick="showSection('upload')">Go to Upload</button>
+        </div>
+      </section>
+    <!-- Models Section -->
+<section id="models">
+    <h2>Model Comparison</h2>
+    <table border="1" cellspacing="0" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Pros</th>
+                <th>Cons</th>
+                <th>Accuracy (Class-wise %)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Random Forest</td>
+                <td>Handles large feature sets well, robust to noise.</td>
+                <td>Can be slow with large datasets.</td>
+                <td>Normal: 85%, Benign: 82%, Malignant: 80%, Adenocarcinoma: 78%, SCC: 75%, SCLC: 72%</td>
+            </tr>
+            <tr>
+                <td>XGBoost</td>
+                <td>High accuracy, handles missing values well.</td>
+                <td>Computationally expensive.</td>
+                <td>Normal: 88%, Benign: 85%, Malignant: 83%, Adenocarcinoma: 80%, SCC: 78%, SCLC: 75%</td>
+            </tr>
+            <tr>
+                <td>LightGBM</td>
+                <td>Fast training speed, good for large datasets.</td>
+                <td>May overfit small datasets.</td>
+                <td>Normal: 87%, Benign: 84%, Malignant: 82%, Adenocarcinoma: 79%, SCC: 76%, SCLC: 74%</td>
+            </tr>
+            <tr>
+                <td>Extra Trees</td>
+                <td>Prevents overfitting, fast training.</td>
+                <td>Less interpretability.</td>
+                <td>Normal: 86%, Benign: 83%, Malignant: 81%, Adenocarcinoma: 77%, SCC: 74%, SCLC: 71%</td>
+            </tr>
+            <tr>
+                <td>SVM</td>
+                <td>Effective in high-dimensional spaces.</td>
+                <td>Slow on large datasets.</td>
+                <td>Normal: 84%, Benign: 81%, Malignant: 79%, Adenocarcinoma: 76%, SCC: 73%, SCLC: 70%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <!-- Upload Section -->
+    <section id="upload">
+        <h2>Upload CT Scan</h2>
+        <input type="file" id="fileInput">
+        <br><br>
+
+        <label>Select a Model:</label>
+        <select id="modelSelect">
+            <option>Random Forest</option>
+            <option>XGBoost</option>
+            <option>LightGBM</option>
+            <option>Extra Trees</option>
+            <option>SVM</option>
+        </select>
+        <br><br>
+
+        <button onclick="uploadImage()">Submit Image</button>
+        <p id="uploadStatus"></p>
+
+    </section>
+    <section id="symptoms">
+            <div id="symptomResult" style="display:none;">
+                <h3 id="riskLevel"></h3>
+            </div>
+                
+
+
+        <h2>Symptom-Based Lung Cancer Risk Prediction</h2>
+        <p id="symptomResult"></p>
+
+        <form id="symptomForm">
+
+            <label>Age:</label>
+            <input type="number" id="age" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+
+        
+            <label>Gender:</label>
+            <select id="gender">
+                <option value="0">Female</option>
+                <option value="1">Male</option>
+            </select required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Smoking Level (0-10):</label>
+            <input type="number" id="smoking" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Air Pollution Exposure (0-10):</label>
+            <input type="number" id="air_pollution" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Alcohol Use (0-10):</label>
+            <input type="number" id="alcohol_use" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Dust Allergy (0-10):</label>
+            <input type="number" id="dust_allergy" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Occupational Hazard (0-10):</label>
+            <input type="number" id="occupational_hazard" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Genetic Risk (0-10):</label>
+            <input type="number" id="genetic_risk" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Chronic Lung Disease (0-10):</label>
+            <input type="number" id="chronic_lung_disease" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Balanced Diet (0-10):</label>
+            <input type="number" id="balanced_diet" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Obesity Level (0-10):</label>
+            <input type="number" id="obesity" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Passive Smoker (0-10):</label>
+            <input type="number" id="passive_smoker" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Chest Pain (0-10):</label>
+            <input type="number" id="chest_pain" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Coughing of Blood (0-10):</label>
+            <input type="number" id="coughing_of_blood" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Fatigue (0-10):</label>
+            <input type="number" id="fatigue" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Weight Loss (0-10):</label>
+            <input type="number" id="weight_loss" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Shortness of Breath (0-10):</label>
+            <input type="number" id="shortness_of_breath" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Wheezing (0-10):</label>
+            <input type="number" id="wheezing" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Swallowing Difficulty (0-10):</label>
+            <input type="number" id="swallowing_difficulty" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Clubbing of Finger Nails (0-10):</label>
+            <input type="number" id="clubbing_of_finger_nails" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Frequent Cold (0-10):</label>
+            <input type="number" id="frequent_cold" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Dry Cough (0-10):</label>
+            <input type="number" id="dry_cough" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <label>Snoring (0-10):</label>
+            <input type="number" id="snoring" min="0" max="10" required style="padding:8px;
+            border:2px solid #ccc;
+            border-radius:8px;
+            transition:transform 0.3s ease, border-color 0.3s ease;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.borderColor='#4CAF50';"
+     onmouseout=" this.style.transform='scale(1)';  this.style.borderColor='#ccc';">
+   <br>
+        
+            <button type="button" onclick="predictSymptoms()">Check Risk</button>
+        
+
+        </form>
+        
+    </section>
+    
+
+    <!-- Results Section -->
+    <section id="results">
+        <h2>Prediction Results</h2>
+        <div id="resultsContainer"></div>
+        <br>
+
+        <!-- Separate Buttons -->
+        <button onclick="toggleVisibility('preprocessingContainer')">Show Preprocessing Steps</button>
+        <button onclick="toggleVisibility('biasVarianceContainer')">Show Bias & Variance</button>
+
+        <!-- Hidden Containers -->
+        <div id="preprocessingContainer" class="hidden">
+            <h3>Preprocessing Steps:</h3>
+            <div class="images">
+                <div>
+                    <h5>Original</h5>
+                    <img id="originalImg" alt="Original">
+                </div>
+                <div>
+                    <h5>Dilated</h5>
+                    <img id="dilatedImg" alt="Dilated">
+                </div>
+                <div>
+                    <h5>Contoured</h5>
+                    <img id="contouredImg" alt="Contoured">
+                </div>
+                <div>
+                    <h5>Masked</h5>
+                    <img id="maskedImg" alt="Masked">
+                </div>
+            </div>
+        </div>
+
+        <div id="biasVarianceContainer" class="hidden">
+            <h3>Bias & Variance:</h3>
+            <p id="biasValue"></p>
+            <p id="varianceValue"></p>
+        </div>
+
+        <h3>Majority Voting Graph:</h3>
+        <img id="majorityGraph" alt="Majority Voting">
+
+        <br>
+        <button onclick="showSection('upload')">Upload Another Image</button>
+        <button onclick="showSection('home')">Back to Home</button>
+        <div id="confusionMatrixContainer" class="hidden">
+            <h3>Confusion Matrix:</h3>
+            <img id="confusionMatrix" alt="Confusion Matrix">
+        </div>
+        <div id="symptomResult" style="display:none;">
+            <h3>Symptom-Based Lung Cancer Prediction</h3>
+            <p><strong>Risk Level:</strong> <span id="riskLevel"></span></p>
+        </div>
+        
+    </section>
+    <section id="team">
+        <h2>Project Team Members</h2>
+        <table border="1" cellspacing="0" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Karthik L</td>
+                    <td>RBSD2109</td>
+                   
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sanjana M</td>
+                    <td>RBSD2120</td>
+                   
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Jhanavi S S</td>
+                    <td>RBSD2108</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>Project Guidance:</strong> This project is being guided by <strong>Mr. Nagesh</strong>, Assistant Professor, Department of Computer Science, Sarada Vilas College.</p>
+    </section>
+    
+    
+    <script>
+        function tryAccessSection(sectionId) {
+  const loggedInUser = sessionStorage.getItem('loggedInUser');
+  if (!loggedInUser) {
+    alert('Please login or signup to access this section.');
+    showSection('login');
+    return;
+  }
+  showSection(sectionId);
+}
+
+                   
+  // Show only one section at a time
+  function showSection(sectionId) {
+    document.querySelectorAll('section').forEach(sec => {
+      sec.style.display = (sec.id === sectionId) ? 'block' : 'none';
+    });
+  }
+
+  // Simple user database stored in localStorage (for demo only)
+  const usersKey = 'lungCancerUsers';
+
+  function getUsers() {
+    return JSON.parse(localStorage.getItem(usersKey)) || [];
+  }
+
+  function saveUsers(users) {
+    localStorage.setItem(usersKey, JSON.stringify(users));
+  }
+
+  // Signup handler
+  function handleSignup(event) {
+    event.preventDefault();
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+    const password = document.getElementById('signupPassword').value;
+
+    const users = getUsers();
+
+    if (users.some(u => u.email === email)) {
+      document.getElementById('signupMessage').textContent = 'Email already registered!';
+      return false;
+    }
+
+    users.push({ name, email, password });
+    saveUsers(users);
+    document.getElementById('signupMessage').style.color = 'green';
+    document.getElementById('signupMessage').textContent = 'Signup successful! Please login.';
+    // Optionally, switch to login form
+    setTimeout(() => {
+      showSection('login');
+      document.getElementById('signupMessage').textContent = '';
+      document.getElementById('signupForm').reset();
+    }, 1500);
+    return false;
+  }
+
+  // Login handler
+  function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+      document.getElementById('loginMessage').style.color = 'green';
+      document.getElementById('loginMessage').textContent = `Welcome, ${user.name}!`;
+      // Store logged-in user in sessionStorage for persistence
+      sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+      
+      // Redirect or enable app features after login
+      setTimeout(() => {
+        document.getElementById('loginMessage').textContent = '';
+        showSection('home');
+        // You can also enable upload/prediction buttons here if needed
+      }, 1500);
+    } else {
+      document.getElementById('loginMessage').style.color = 'red';
+      document.getElementById('loginMessage').textContent = 'Invalid email or password.';
+    }
+    return false;
+  }
+
+  // Auto show login or home based on session
+  window.onload = () => {
+    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      showSection('home');
+    } else {
+      showSection('login');
+    }
+  }
+function updateUserGreeting() {
+  const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+  if(user) {
+    document.getElementById('userGreeting').textContent = `Logged in as: ${user.name}`;
+  } else {
+    document.getElementById('userGreeting').textContent = '';
+  }
+}
+        
+function showModal(title, message) {
+    const modal = document.getElementById('predictionModal');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMessage').textContent = message;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('predictionModal').style.display = 'none';
+}
+
+
+        
+function showSection(sectionId) {
+    const sections = document.querySelectorAll("section");
+    sections.forEach(section => section.style.display = "none");
+    document.getElementById(sectionId).style.display = "block";
+}
+
+
+        
+
+        function toggleVisibility(id) {
+            let element = document.getElementById(id);
+            element.style.display = (element.style.display === "none" || element.style.display === "") ? "block" : "none";
+        }
+        async function predictSymptoms() {
+            const symptomData = {
+                "Age": parseInt(document.getElementById("age").value),
+                "Gender": document.getElementById("gender").value === "Male" ? 1 : 0,
+                "Smoking": parseInt(document.getElementById("smoking").value),
+                "Air Pollution": parseInt(document.getElementById("air_pollution").value),
+                "Alcohol Use": parseInt(document.getElementById("alcohol_use").value),
+                "Dust Allergy": parseInt(document.getElementById("dust_allergy").value),
+                "Occupational Hazard": parseInt(document.getElementById("occupational_hazard").value),
+                "Genetic Risk": parseInt(document.getElementById("genetic_risk").value),
+                "Chronic Lung Disease": parseInt(document.getElementById("chronic_lung_disease").value),
+                "Balanced Diet": parseInt(document.getElementById("balanced_diet").value),
+                "Obesity": parseInt(document.getElementById("obesity").value),
+                "Passive Smoker": parseInt(document.getElementById("passive_smoker").value),
+                "Chest Pain": parseInt(document.getElementById("chest_pain").value),
+                "Coughing of Blood": parseInt(document.getElementById("coughing_of_blood").value),
+                "Fatigue": parseInt(document.getElementById("fatigue").value),
+                "Weight Loss": parseInt(document.getElementById("weight_loss").value),
+                "Shortness of Breath": parseInt(document.getElementById("shortness_of_breath").value),
+                "Wheezing": parseInt(document.getElementById("wheezing").value),
+                "Swallowing Difficulty": parseInt(document.getElementById("swallowing_difficulty").value),
+                "Clubbing of Finger Nails": parseInt(document.getElementById("clubbing_of_finger_nails").value),
+                "Frequent Cold": parseInt(document.getElementById("frequent_cold").value),
+                "Dry Cough": parseInt(document.getElementById("dry_cough").value),
+                "Snoring": parseInt(document.getElementById("snoring").value)
+            };
+        
+            try {
+                const response = await fetch("http://127.0.0.1:5000/predict_symptoms", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(symptomData)
+                });
+        
+                const data = await response.json();
+                console.log("📥 API Response:", data); // Debugging
+        
+                // Check if response contains prediction
+                if (data.prediction) {
+    document.getElementById("riskLevel").innerText = data.prediction;
+    document.getElementById("symptomResult").style.display = "block"; // Show container
+    showModal("Symptom Prediction: " +data.prediction);  // <-- ADD THIS popup alert here
+
+} else {
+    document.getElementById("riskLevl").innerHTML = "<span style='color:red;'>Error: No Prediction Received.</span>";
+    document.getElementById("symptomResult").style.display = "block"; // Still show container with error
+  showModal("Symptom Prediction Error; No Prediction Received.");
+}
+
+        
+            } catch (error) {
+                console.error("❌ Error:", error);
+                document.getElementById("symptomResult").innerHTML = `<p style="color:red;">Error processing prediction.</p>`;
+            }
+        }
+        
+        
+        
+        
+        
+        
+        async function uploadImage() {
+            const fileInput = document.getElementById("fileInput").files[0];
+            const model = document.getElementById("modelSelect").value;
+
+            if (!fileInput) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput);
+            formData.append("model", model);
+
+            document.getElementById("uploadStatus").innerText = "Processing...";
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/predict", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                displayResults(data);
+                showSection("results");
+            } catch (error) {
+                alert("Error processing the image.");
+            }
+        }
+
+        const classMapping = {
+            "Class_1": "Normal",
+            "Class_2": "Benign",
+            "Class_3": "Malignant",
+            "Class_4": "Adenocarcinoma",
+            "Class_5": "Squamous Cell Carcinoma",
+            "Class_6": "Small Cell Lung Carcinoma"
+        };
+        function logout() {
+  sessionStorage.removeItem('loggedInUser');
+  alert("You have been logged out.");
+  showSection('login');
+  document.getElementById('userGreeting').textContent = '';
+}
+
+
+        
+        function mapClassName(className) {
+            return classMapping[className] || className; // Return the original name if not mapped
+        }
+        
+        function displayResults(data) {
+            let resultsHTML = `<h3>Final Prediction: ${mapClassName(data.final_prediction)}</h3>
+                <h4>Model Predictions:</h4>
+                <ul>`;
+            for (let model in data.all_model_predictions) {
+                resultsHTML += `<li>${model}: ${mapClassName(data.all_model_predictions[model])}</li>`;
+            }
+            resultsHTML += `</ul>`;
+        
+            document.getElementById("resultsContainer").innerHTML = resultsHTML;
+            showModal("CT Scan Prediction: " +mapClassName(data.final_prediction));
+
+
+            // Store preprocessing images (hidden by default)
+            document.getElementById("originalImg").src = "data:image/png;base64," + data.preprocessing_images.original;
+            document.getElementById("dilatedImg").src = "data:image/png;base64," + data.preprocessing_images.dilated;
+            document.getElementById("contouredImg").src = "data:image/png;base64," + data.preprocessing_images.contoured;
+            document.getElementById("maskedImg").src = "data:image/png;base64," + data.preprocessing_images.masked;
+
+            // Store Bias & Variance values
+            document.getElementById("biasValue").innerText = "Bias: " + data.bias.toFixed(3);
+            document.getElementById("varianceValue").innerText = "Variance: " + data.variance.toFixed(3);
+
+            // Store Majority Voting Graph
+            document.getElementById("majorityGraph").src = "data:image/png;base64," + data.majority_voting_graph;
+  
+
+
+
+            // Hide sections initially
+            document.getElementById("preprocessingContainer").style.display = "none";
+            document.getElementById("biasVarianceContainer").style.display = "none";
+             // Display Confusion Matrix
+             //document.getElementById("confusionMatrix").src = "data:image/png;base64," + data.confusion_matrix;
+             //document.getElementById("confusionMatrixContainer").style.display = "block";
+            }       
+        
+
+    </script>
+
+</body>
+</html>
